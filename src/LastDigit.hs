@@ -25,6 +25,8 @@ digitLookup = [
 lastDigit' [] = 1
 lastDigit' (x:xs) = let x' = if x < 20 then x else x `mod` 20 + 20
                         ds = digitLookup !! (fromIntegral x')
-                     in case lastDigit' xs of 0 -> 1
-                                              1 -> x
-                                              j -> ds !! (fromIntegral $ j `mod` 4)
+                        next = case xs of (1:_) -> 1
+                                          _     -> lastDigit' xs
+                     in case next of 0 -> 1
+                                     1 -> x
+                                     j -> ds !! (fromIntegral $ j `mod` 4)
